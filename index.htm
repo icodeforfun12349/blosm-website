@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blosm | External V1 - The New Standard</title>
 
+    <meta name="description" content="Blosm External V1.0.1 - The New Standard for External Cheats. Undetected, Fast, and Always Updated. Download Blosm now for free.">
+    <meta name="keywords" content="blosm, external, cheat, executor, roblox, undetected, silent aim, free, script">
+    <meta name="author" content="Crypted">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -18,6 +22,11 @@
             --text-main: #FFFFFF;
             --text-secondary: #AAAAAA;
             --text-light: #666666;
+        }
+
+        /* UX IMPROVEMENT: Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -34,6 +43,27 @@
             line-height: 1.6;
             cursor: none; /* Hides default cursor */
         }
+        
+        /* NEW: Subtle Texture Overlay for a premium, gritty feel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Subtle dark noise/dot pattern */
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 10px
+            );
+            opacity: 1; 
+            pointer-events: none;
+            z-index: -1; /* Place behind all content */
+        }
 
         /* --- START SCREEN STYLES --- */
         #preloader {
@@ -42,7 +72,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Semi-transparent dark overlay to enhance blur visibility */
             background: rgba(0, 0, 0, 0.7); 
             z-index: 10001;
             display: flex;
@@ -51,7 +80,7 @@
             flex-direction: column;
             opacity: 1; 
             transition: opacity 1.5s ease;
-            cursor: pointer; /* Makes the entire overlay clickable and gives visual feedback */
+            cursor: pointer; 
         }
 
         #preloader.hidden {
@@ -73,7 +102,6 @@
             font-size: 1.5em;
             font-weight: 600;
             letter-spacing: 3px;
-            /* Simple pulsing animation to indicate clickability */
             animation: pulse-text 1.5s infinite alternate;
         }
         
@@ -87,7 +115,6 @@
             transition: filter 1.5s ease;
         }
 
-        /* Blur effect applied ONLY to the content wrapper */
         .content-blurred {
             filter: blur(8px);
         }
@@ -124,16 +151,37 @@
             transition: transform 0.15s ease-out, border-color 0.4s, box-shadow 0.4s;
         }
 
-        /* Interactive elements get a visual change (UPDATED) */
-        a:hover ~ .cursor-outline, button:hover ~ .cursor-outline, .download-btn:hover ~ .cursor-outline, .discord-btn:hover ~ .cursor-outline, #preloader:hover ~ .cursor-outline, #tutorial-link:hover ~ .cursor-outline {
+        /* Interactive elements get a visual change */
+        a:hover ~ .cursor-outline, button:hover ~ .cursor-outline, .download-btn:hover ~ .cursor-outline, .discord-btn:hover ~ .cursor-outline, #preloader:hover ~ .cursor-outline {
             transform: translate(-50%, -50%) scale(1.5);
             border-color: var(--text-main);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
-        a:hover ~ .cursor-dot, button:hover ~ .cursor-dot, .download-btn:hover ~ .cursor-dot, .discord-btn:hover ~ .cursor-dot, #preloader:hover ~ .cursor-dot, #tutorial-link:hover ~ .cursor-dot {
+        a:hover ~ .cursor-dot, button:hover ~ .cursor-dot, .download-btn:hover ~ .cursor-dot, .discord-btn:hover ~ .cursor-dot, #preloader:hover ~ .cursor-dot {
             background-color: var(--text-main);
             width: 12px;
             height: 12px;
+        }
+        
+        /* --- DYNAMIC MOUSE GLOW --- */
+        #mouse-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: 10000; 
+            filter: blur(80px); 
+            transform: translate(-50%, -50%); 
+            transition: width 0.3s, height 0.3s; 
+            opacity: 0.8;
+        }
+
+        /* Make the glow larger when hovering over interactive elements */
+        a:hover ~ #mouse-glow, button:hover ~ #mouse-glow, .download-btn:hover ~ #mouse-glow, .discord-btn:hover ~ #mouse-glow, #preloader:hover ~ #mouse-glow {
+            width: 400px;
+            height: 400px;
+            opacity: 1;
         }
 
         /* --- BLOSM EFFECT (Snowfall) --- */
@@ -172,7 +220,7 @@
             transform: translateY(0);
         }
 
-        .showcase-section > *, .features-section > *, .download-section > *, .specs-section > *, .changelog-section > *, .tutorial-section > * {
+        .showcase-section > *, .features-section > *, .download-section > *, .specs-section > *, .tutorial-section > * {
             transition-delay: 0.1s;
         }
         .feature-card:nth-child(2) { transition-delay: 0.2s; }
@@ -197,6 +245,27 @@
             font-weight: 800;
             letter-spacing: 3px;
             color: var(--text-main);
+            text-shadow: 0 0 5px var(--pink-shadow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.3s, text-shadow 0.3s;
+            padding: 5px 0;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--pink-accent);
             text-shadow: 0 0 5px var(--pink-shadow);
         }
 
@@ -298,7 +367,7 @@
             margin: 0 auto;
         }
 
-        /* --- DOWNLOAD SECTION STYLES (MODIFIED) --- */
+        /* --- DOWNLOAD SECTION STYLES --- */
         .download-section {
             text-align: center;
             padding: 100px 20px;
@@ -317,12 +386,11 @@
             color: var(--pink-accent);
         }
 
-        /* New button group container */
+        /* BUTTON GROUP: Side-by-side layout */
         .download-section .button-group {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Spacing between elements */
-            flex-direction: column; 
+            gap: 30px; 
             align-items: center;
         }
 
@@ -340,7 +408,8 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             box-shadow: 0 5px 20px var(--pink-shadow);
-            margin-bottom: 10px; /* Space above subtitle */
+            border: none;
+            cursor: none;
         }
 
         .download-btn:hover {
@@ -349,25 +418,7 @@
             filter: brightness(1.2);
         }
         
-        /* New: Subtitle/Link for Tutorial */
-        .download-subtitle {
-            font-size: 1em;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        #tutorial-link {
-            color: var(--pink-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        #tutorial-link:hover {
-            color: var(--pink-accent);
-            text-decoration: underline;
-        }
-
-        /* New Discord Button Style */
+        /* Discord Button Style */
         .discord-btn {
             display: inline-flex;
             align-items: center;
@@ -383,7 +434,6 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-            margin-top: 0; /* Ensures spacing is controlled by parent gap */
         }
         
         .discord-btn i {
@@ -462,7 +512,7 @@
             font-size: 1em;
         }
         
-        /* --- NEW: TUTORIAL SECTION --- */
+        /* --- TUTORIAL SECTION --- */
         .tutorial-section {
             padding: 100px 0;
             text-align: center;
@@ -521,83 +571,6 @@
             color: var(--text-main);
         }
 
-        /* --- CHANGELOG SECTION --- */
-        .changelog-section {
-            padding-top: 50px; 
-            padding-bottom: 120px;
-        }
-
-        .changelog-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            max-width: 900px;
-            margin: 40px auto 0;
-        }
-
-        .changelog-item {
-            background: var(--darker-panel);
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 5px solid var(--pink-accent);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .changelog-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 30px var(--pink-shadow);
-        }
-
-        .changelog-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #333;
-        }
-
-        .changelog-meta .version {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--pink-accent);
-            letter-spacing: 1px;
-        }
-
-        .changelog-meta .date {
-            font-size: 0.9em;
-            color: var(--text-secondary);
-        }
-
-        .changelog-item h3 {
-            font-size: 1.6em;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
-
-        .changelog-item ul {
-            list-style: none;
-            padding-left: 0;
-            font-size: 1em;
-        }
-
-        .changelog-item li {
-            background: #111;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            color: var(--text-secondary);
-            border-left: 3px solid var(--pink-light);
-            line-height: 1.4;
-        }
-
-        .changelog-item li strong {
-            color: var(--pink-accent);
-        }
-
         /* --- FOOTER --- */
         footer {
             text-align: center;
@@ -618,6 +591,9 @@
             .container {
                 padding: 80px 40px;
             }
+            .nav-links {
+                gap: 20px;
+            }
             .hero h1 {
                 font-size: 3.5em;
             }
@@ -626,6 +602,17 @@
         @media (max-width: 768px) {
             nav {
                 padding: 20px 25px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: space-around;
+                margin-top: 15px;
+            }
+            .nav-version {
+                order: 2;
             }
             .hero {
                 padding: 100px 20px 60px;
@@ -658,15 +645,13 @@
             .specs-section {
                 padding: 50px 20px;
             }
-            .changelog-item h3 {
-                font-size: 1.4em;
-            }
         }
     </style>
 </head>
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
+    <div id="mouse-glow"></div> 
 
     <div id="preloader">
         <div id="preloader-version">BLOSM V1.0.1</div>
@@ -680,8 +665,14 @@
     <div id="snowfall"></div>
 
     <div id="content-wrapper" class="content-blurred">
-        <nav>
+        
+        <nav id="navbar">
             <div class="logo">BLOSM</div>
+            <div class="nav-links">
+                <a href="#features-section" class="nav-link" aria-label="Go to Features section">FEATURES</a>
+                <a href="#download-section" class="nav-link" aria-label="Go to Download section">DOWNLOAD</a>
+                <a href="#tutorial-section" class="nav-link" aria-label="Go to Help and Tutorial section">HELP</a>
+                </div>
             <div class="nav-version">V1.0.1 (Stable)</div>
         </nav>
 
@@ -696,8 +687,8 @@
         </div>
 
         <div class="container">
-
-            <section class="showcase-section scroll-hidden">
+            
+            <section id="showcase-section" class="showcase-section scroll-hidden">
                 <h2 class="section-title">The <span class="accent">UI</span></h2>
                 <p class="section-description">
                     You're gonna spend a lot of time here. We made it look clean and simple so you can focus on the game. Trust us, it's clean.
@@ -708,7 +699,8 @@
                 </div>
             </section>
 
-            <section class="features-section scroll-hidden">
+            
+            <section id="features-section" class="features-section scroll-hidden">
                 <h2 class="section-title">Why it's <span class="accent">Better</span></h2>
                 <p class="section-description">
                     It just hits different. We focused on the three things that actually matter when you're playing.
@@ -733,14 +725,11 @@
                 </div>
             </section>
 
-            <section class="download-section scroll-hidden">
+            
+            <section id="download-section" class="download-section scroll-hidden">
                 <h2>Time to make the switch.</h2>
                 <div class="button-group">
                     <a href="https://cdn.discordapp.com/attachments/1381996028953366681/1443285990893420645/Blosm.exe?ex=692c78d3&is=692b2753&hm=db7e42a30409c9145b683fe0ad5355b04ee0ff79b2ab1228947374ab97cd99e6&" class="download-btn">DOWNLOAD BLOSM NOW</a>
-                    
-                    <div class="download-subtitle">
-                        <a href="#tutorial-section" id="tutorial-link">Need help?</a>
-                    </div>
                     
                     <a href="https://discord.com/invite/blosm" class="discord-btn" target="_blank">
                         <i class="fab fa-discord"></i> JOIN DISCORD
@@ -777,138 +766,12 @@
                     ins/insert, to open close the menu
                 </p>
                 <div class="video-container">
-                    <video id="tutorialVideo" src="lol.mp4" controls muted poster="faggot.png" preload="none">
+                    <video id="tutorialVideo" src="lol.mp4" controls muted poster="faggot.png" preload="none" loading="lazy">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </section>
-
-            <section class="changelog-section container scroll-hidden">
-                <h2 class="section-title">Latest <span class="accent">Updates</span></h2>
-                <p class="section-description">
-                    Track every major feature, fix, and improvement we've deployed to make Blosm the best external experience possible.
-                </p>
-
-                <div class="changelog-list">
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 2.0</span>
-                            <span class="date">16 August 2025</span>
-                        </div>
-                        <h3>Mouse Spoofing & Aimbot Improvements</h3>
-                        <ul>
-                            <li><strong>IMPORTANT:</strong> Mouse Spoofing has been implemented into Silent Aim.</li>
-                            <li>Aimbot has been improved and made more strong.</li>
-                            <li>Silent Aim now targets the enemy closest to your crosshair automatically.</li>
-                            <li>**VISUALS:** Improved ESP boxes and Chams. Added alert arrows.</li>
-                            <li>**MISC:** Fly has been improved.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.7</span>
-                            <span class="date">07 August 2025</span>
-                        </div>
-                        <h3>UI & Config Reliability</h3>
-                        <ul>
-                            <li><strong>IMPORTANT:</strong> The User Interface has been improved for better usability and visual clarity.</li>
-                            <li>The Config System has been improved for more reliable saving and loading of settings.</li>
-                            <li>"Avatar" icons now appear above players.</li>
-                            <li>Added a new "Filled" style for ESP boxes.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.6</span>
-                            <span class="date">01 August 2025</span>
-                        </div>
-                        <h3>Full Config System & Stealth</h3>
-                        <ul>
-                            <li><strong>IMPORTANT:</strong> A full **Config System** has been implemented for saving and loading of your settings.</li>
-                            <li>**STEALTH:** Dynamic Process Naming (randomizes process name on launch).</li>
-                            <li>**MISC:** Shoot Sound Changer and Beta Orbit feature added.</li>
-                        </ul>
-                    </div>
-
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.5</span>
-                            <span class="date">20 July 2025</span>
-                        </div>
-                        <h3>Complete Menu Redesign & New Features</h3>
-                        <ul>
-                            <li><strong>Menu:</strong> Entire menu completely redesigned and rewritten for a smoother, cleaner experience.</li>
-                            <li><strong>Aimbot:</strong> Improved Silent Aim and Aimbot accuracy. Customizable Triggerbot.</li>
-                            <li>**VISUALS:** ESP Distance controls, Player Icons/Health, Chams (Wireframe, Filled, Outline), Local Player Trail, Trail follows players, Footstep visualization.</li>
-                            <li>**MISC:** Custom Gravity, Outdoor Ambient, Auto Day/Night cycle, Fog Removal, Time Changer, Jump Modifier.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.4</span>
-                            <span class="date">10 July 2025</span>
-                        </div>
-                        <h3>Visual & Performance Updates</h3>
-                        <ul>
-                            <li>Added **Filled ESP Boxes** and **Aimbot Hitbox ESP**.</li>
-                            <li>**V-Sync** is now automatically enabled.</li>
-                            <li>Improved UI for a cleaner and more responsive experience.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.3</span>
-                            <span class="date">04 July 2025</span>
-                        </div>
-                        <h3>Lua Execution Work</h3>
-                        <ul>
-                            <li>Currently working on optional **Lua execution** to provide more flexibility. (UI is still beta).</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.2</span>
-                            <span class="date">02 July 2025</span>
-                        </div>
-                        <h3>New Server List Controls</h3>
-                        <ul>
-                            <li>The new **Server List** includes features like Aim View, Fling, Spectate, Whitelist, and Unwhitelist.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.1</span>
-                            <span class="date">28 June 2025</span>
-                        </div>
-                        <h3>Minor UI/ESP Updates</h3>
-                        <ul>
-                            <li>UI improvements for a cleaner look and smoother performance.</li>
-                            <li>A local player ESP preview has been added.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="changelog-item scroll-hidden">
-                        <div class="changelog-meta">
-                            <span class="version">Version 1.0.1</span>
-                            <span class="date">26 June 2025</span>
-                        </div>
-                        <h3>Initial Release & ESP Redesign</h3>
-                        <ul>
-                            <li>Rolled out a major UI revamp for a cleaner look and easier access.</li>
-                            <li>The ESP has been redesigned to include three new styles: **2D, 3D, and Corner Boxes**.</li>
-                            <li>**Tracers** have been added (bottom, middle, or top).</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+            </div>
 
         <footer>
             <p>© 2025 Blosm External. All rights reserved. Code by Crypted.</p>
@@ -916,14 +779,11 @@
     </div>
     <script>
         // --- SCROLL MANAGEMENT: Forces the user to the top of the page on refresh or navigation ---
-        
-        // Prevents most modern browsers from restoring the scroll position on back/forward navigation or refresh.
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
 
         window.onbeforeunload = function () {
-            // Forces the scroll position to the very top (0, 0) before the browser saves state.
             window.scrollTo(0, 0);
         };
         
@@ -943,7 +803,7 @@
             }, (parseFloat(snowflake.style.animationDuration) * 1000) + 1000);
         }
 
-        // --- PRELOADER LOGIC (FIXED: Listens to click on the entire #preloader) ---
+        // --- PRELOADER LOGIC ---
         document.getElementById('preloader').addEventListener('click', function() {
             const preloader = document.getElementById('preloader');
             const contentWrapper = document.getElementById('content-wrapper');
@@ -961,37 +821,70 @@
             // 3. Re-enable body scroll
             document.body.style.overflow = 'visible';
 
-            // 4. Start Snowfall and Intersection Observer (animations)
+            // 4. Start Snowfall and Intersection Observer (animations and scrollspy)
             setTimeout(() => {
                 // Start Snowfall
                 setInterval(createSnowflake, 300);
 
-                // Start Scroll Reveal Observer
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('scroll-reveal');
-                        }
-                    });
-                }, {
-                    threshold: 0.2
-                });
-
-                const hiddenElements = document.querySelectorAll('.scroll-hidden');
-                hiddenElements.forEach((el) => observer.observe(el));
+                // Initialize Scroll Reveal & Scrollspy
+                initializeScrollEffects();
             }, 1000);
         });
+
+        // --- SCROLL REVEAL & SCROLLSPY INITIALIZATION (Updated to remove changelog logic) ---
+        function initializeScrollEffects() {
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+            const sectionsForReveal = document.querySelectorAll('.scroll-hidden');
+            // Removed #changelog-content from this list
+            const sectionsForScrollspy = document.querySelectorAll('#features-section, #download-section, #tutorial-section'); 
+
+            // 1. SCROLL REVEAL OBSERVER
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scroll-reveal');
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            sectionsForReveal.forEach((el) => {
+                revealObserver.observe(el);
+            });
+
+
+            // 2. SCROLLSPY OBSERVER
+            const scrollSpyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        allNavLinks.forEach(link => link.classList.remove('active'));
+                        // Simplified activation logic
+                        document.querySelector(`.nav-links a[href="#${entry.target.id}"]`).classList.add('active');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '-30% 0px -30% 0px', 
+                threshold: 0
+            });
+
+            sectionsForScrollspy.forEach(section => {
+                scrollSpyObserver.observe(section);
+            });
+        }
+
 
         // Initial setup to prevent scrolling until enter is clicked
         document.addEventListener('DOMContentLoaded', (event) => {
             document.body.style.overflow = 'hidden';
-            // Also ensure scroll is at the top on initial load
             window.scrollTo(0, 0); 
         });
 
-        // --- EXISTING CURSOR LOGIC ---
+        // --- CURSOR AND GLOW LOGIC ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
+        const mouseGlow = document.getElementById('mouse-glow');
 
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
@@ -1004,6 +897,12 @@
                 left: `${posX}px`,
                 top: `${posY}px`
             }, { duration: 50, fill: "forwards" });
+
+            // Animate the glow effect
+            mouseGlow.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 200, fill: "forwards" });
         });
     </script>
 </body>
